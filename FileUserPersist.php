@@ -9,9 +9,9 @@ class FileUserPersist implements UserPersistInterface
 
     public function save(User $user): void
     {
-        if (file_exists(filename: self::FILENAME)){
-            $fileContains = json_encode(file_get_contents(filename: self::FILENAME), associative: true);
-        }else{
+        if (file_exists(filename: self::FILENAME)) {
+            $fileContains = json_decode(file_get_contents(filename: self::FILENAME));
+        } else {
             $fileContains = [];
         }
 

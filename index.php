@@ -56,7 +56,7 @@
         $user = new User((string) $_POST['login'], (string) $_POST['password'], (string) $_POST['password2']);
         
         echo $user->getCreatedAt()->format(format:'d.m.Y H:i:s') . '<br>';
-        echo ($user->isPasswordsEquals() ?'Одинаковые':'Разные') . ' пароли';
+        echo ($user->isPasswordsEquals() ?'Одинаковые':'Разные') . ' пароли ';
 
         if (!$user->isPasswordsEquals()) {
             echo 'Ошибка: пароли не одинаковые';
