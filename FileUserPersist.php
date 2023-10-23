@@ -1,5 +1,6 @@
 <?php
-declare(strict_types= 1);
+
+declare(strict_types=1);
 
 require_once 'UserPersistInterface.php';
 
@@ -9,24 +10,41 @@ class FileUserPersist implements UserPersistInterface
 
     public function save(User $user): void
     {
-        if (file_exists(filename: self::FILENAME)) {
-            $fileContains = json_decode(file_get_contents(filename: self::FILENAME));
+        if (file_exists(self::FILENAME)) {
+            $fileContains = json_decode(file_get_contents(self::FILENAME), true);
         } else {
             $fileContains = [];
         }
 
         $fileContains[] = $this->getUserToPersistByUser($user);
-        
-        file_put_contents(filename: self::FILENAME, data: json_encode($fileContains));
+
+
+        file_put_contents(self::FILENAME, json_encode($fileContains));
     }
 
-    private function getUserToPersistByUser(User $user):array
+    public function get(string $login): ?User
+    {
+        if (!file_exists(self::FILENAME)) {
+            return null;
+        }
+
+        $rawUsers = json_decode(file_get_contents(self::FILENAME), true);
+
+        foreach ($rawUsers as $item) {
+            if ($item['login'] === $login) {
+                return new User(strtolower($item['login']), $item['password'], $item['password'], DateTimeImmutable::createFromFormat('d.m.Y H:i:s', $item['createdAt']));
+            }
+        }
+
+        return null;
+    }
+
+    private function getUserToPersistByUser(User $user): array
     {
         return [
-            "login"=> $user->getLogin(),
-            "password"=> sha1($user->getPassword()),
-            "createdAt" => $user->getCreatedAt() ->format(format: 'd.m.Y H:i:s'),
+            'login' => $user->getLogin(),
+            'password' => sha1($user->getPassword()),
+            'createdAt' => $user->getCreatedAt()->format('d.m.Y H:i:s'),
         ];
     }
-
 }
