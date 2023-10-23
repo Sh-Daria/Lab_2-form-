@@ -44,15 +44,4 @@ class User
     }
 
 
-
-//    private string $login;
-//    private string $password;
-//    private string $passwordConfirmation;
-//
-//    public function __construct(string $login, string $password, string $passwordConfirmation)
-//    {
-//        $this->login = $login;
-//        $this->password = $password;
-//        $this->passwordConfirmation = $passwordConfirmation;
-//    }
 }

@@ -31,7 +31,7 @@ class DatabaseUserPersist implements UserPersistInterface
     {
         if (!$this->databaseConnection) {
             try {
-                $this->databaseConnection = new PDO('mysql:dbname=app;host=127.0.0.1', 'app', '!ChangeMe!');
+                $this->databaseConnection = new PDO('mysql:dbname=tab_user;host=127.0.0.1', 'sqluser', 'password');
             } catch (PDOException $e) {
                 die($e->getMessage());
             }
