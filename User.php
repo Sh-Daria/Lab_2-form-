@@ -10,6 +10,7 @@ class User
         private readonly string $passwordConfirmation,
         $createdAt = null,
     )
+    
     {
         $this->createdAt = $createdAt;
 
